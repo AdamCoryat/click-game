@@ -1,0 +1,16 @@
+body { min-height: 100vh; display: flex; flex-direction: column; }
+header{
+  height: 20vh;
+ } 
+main{flex-grow: 1;} 
+footer{
+  height: 20vh;
+ }
+
+ .mining{
+  height: 50vh
+ }
+ 
+ .goldNugget{
+   height: 10vh;
+ }

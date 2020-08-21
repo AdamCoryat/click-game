@@ -9,24 +9,40 @@
 </head>
 <body>
   <header class="container-fluid">
-    <div class="row">
+    <div class="row bg-primary">
       <div class="col"></div>
     </div>
   </header>
   
   <main class="container-fluid">
     <div class="row">
-      <div class="col-4"></div>
-      <div class="col-4"></div>
-      <div class="col-4"></div>
+
+      <div id="currentStats" class="col-6 col-md-4 order-2 order-md-1 d-flex align-self-center text-center justify-content-center">
+      </div>
+
+      <div class="col-12 col-md-4 order-1 order-md-2 text-center align-self-center justify-content-center">
+        <img id="mine" class="mining" src="//placehold.it/200x200" onclick="mine()" alt="">
+      </div>
+
+      <div id="inventory" class="col-6 col-md-4 order-3 order-md-3 d-flex justify-content-center text-center">
+      </div>
     </div>
+
+      <div class="row text-center justify-content-center">
+        <div id="buttons" class="col-12 col-md-6 d-flex justify-content-center">
+
+        </div>        
+      </div>
   </main>
 
   <footer class="container-fluid">
     <div class="row">
-      <div class="col"></div>
+      <div class="col text-center">
+        <h5>Made with Love by A.D.D Designs LLC</h5>
+      </div>
     </div>
   </footer>
+  <script src='https://code.jquery.com/jquery-3.2.1.slim.min.js' integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN' crossorigin='anonymous'></script> <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js' integrity='sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q' crossorigin='anonymous'></script> <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js' integrity='sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl' crossorigin='anonymous'></script>
   <script src="app.js"></script>
 </body>
 </html>
