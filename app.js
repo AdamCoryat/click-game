@@ -86,7 +86,7 @@ function buyRobot() {
 }
 
 function drawMoneyMobile() {
-  let template = `<div class="card trans-bg border border-secondary body-font d-block d-md-none text-center">
+  let template = `<div class="card trans-bg border border-secondary body-font d-block d-md-none text-center m-3">
         <h5><img class="goldNugget" src="gold.png"> <span class="body-font" id="moneyMobile">${money}</span></h5>
       </div>`
   document.getElementById("moneyMobileCard").innerHTML = template
@@ -100,7 +100,7 @@ function drawCurrentStats() {
   <p class="card-text font-weight-lighter">This is how much sweet gold loots your getting per click: <span id="clickValue">${click}</span></p>
   <p class="card-text font-weight-lighter">This is how much gold you're making not doing anything!: <span id="autoValue">${autoCount}</span></p>
 </div>
-    <div class="card trans-bg border border-secondary body-font d-block d-md-none" >
+    <div class="card trans-bg border border-secondary body-font d-block d-md-none m-3" >
       <div class="card-header font-weight-bold">
         Gold Getting Stats
   </div>
@@ -121,7 +121,7 @@ function drawInventory() {
   <p class="card-text">robot: <span id="robot">${automaticUpgrades.robot.quantity}</span></p>
 </div>
 </div>
-<div class="card trans-bg border border-secondary body-font d-block d-md-none">
+<div class="card trans-bg border border-secondary body-font d-block d-md-none m-3">
 <div class="card-body">
   <p class="card-text"><img class="tools" src="chizel.png"> <span id="chizelMobile">${clickUpgrades.chizel.quantity}</span></p>
   <p class="card-text"><img class="tools" src="pickaxe.png"> <span id="pickaxeMobile">${clickUpgrades.pickaxe.quantity}</span></p>
