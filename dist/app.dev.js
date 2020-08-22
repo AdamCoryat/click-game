@@ -6,19 +6,19 @@ var autoCount = 0;
 var minable = true;
 var clickUpgrades = {
   chizel: {
-    price: 2,
+    price: 50,
     quantity: 0,
-    multiplier: 30
+    multiplier: 2
   },
   pickaxe: {
-    price: 250,
+    price: 150,
     quantity: 0,
     multiplier: 6
   }
 };
 var automaticUpgrades = {
   miner: {
-    price: 5,
+    price: 500,
     quantity: 0,
     multiplier: 20
   },

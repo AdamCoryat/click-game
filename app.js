@@ -5,12 +5,12 @@ let minable = true
 
 let clickUpgrades = {
   chizel: {
-    price: 2,
+    price: 50,
     quantity: 0,
-    multiplier: 30
+    multiplier: 2
   },
   pickaxe: {
-    price: 250,
+    price: 150,
     quantity: 0,
     multiplier: 6
   }
@@ -18,7 +18,7 @@ let clickUpgrades = {
 
 let automaticUpgrades = {
   miner: {
-    price: 5,
+    price: 500,
     quantity: 0,
     multiplier: 20
   },
