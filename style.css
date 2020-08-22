@@ -28,6 +28,10 @@ footer{
    height: 4vh;
  }
 
+ .disable-dbl-tap-zoom {
+   touch-action: manipulation
+ }
+
  .title-font{
   font-family: 'Monoton', cursive;
   font-size: 10vh;
