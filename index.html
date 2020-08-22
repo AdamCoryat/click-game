@@ -1,48 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet"href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="darkly.css">
   <link rel="stylesheet" href="style.css">
-  <title>Click Game</title>
+
+  <title>Global Gold</title>
 </head>
+
 <body>
+
   <header class="container-fluid">
-    <div class="row bg-primary">
-      <div class="col"></div>
+    <div class="row">
+      <div class="col text-center d-flex justify-content-center align-content-stretch">
+        <h1 class="title-font">GLOBAL GOLD</h1>
+      </div>
     </div>
   </header>
-  
-  <main class="container-fluid">
+
+  <main class="container-fluid particles-js">
     <div class="row">
 
-      <div id="currentStats" class="col-6 col-md-4 order-2 order-md-1 d-flex align-self-center text-center justify-content-center">
+      <div id="currentStats"
+        class="col-6 col-md-4 order-2 order-md-1 d-flex align-self-center text-center justify-content-center">
       </div>
 
       <div class="col-12 col-md-4 order-1 order-md-2 text-center align-self-center justify-content-center">
-        <img id="mine" class="mining" src="//placehold.it/200x200" onclick="mine()" alt="">
+        <img id="mine" class="mining" src="globe.png" onclick="mine()" alt="">
+      </div>
+      <div class="col-12" id="moneyMobileCard">
+
       </div>
 
-      <div id="inventory" class="col-6 col-md-4 order-3 order-md-3 d-flex justify-content-center text-center">
+      <div id="inventory" class="col-6 col-md-4 order-3 order-md-3 d-flex justify-content-center text-center h-50">
       </div>
     </div>
 
-      <div class="row text-center justify-content-center">
-        <div id="buttons" class="col-12 col-md-6 d-flex justify-content-center">
+    <div class="row text-center justify-content-center">
+      <div id="buttons" class="col col-md-3 d-flex justify-content-center border border-secondary body-font trans-bg">
 
-        </div>        
       </div>
+    </div>
   </main>
 
-  <footer class="container-fluid">
+  <footer class="container-fluid bg-primary">
     <div class="row">
-      <div class="col text-center">
-        <h5>Made with Love by A.D.D Designs LLC</h5>
+      <div class="col-12 text-center align-content-center justify-content-center d-flex">
+        <h5 class="body-font">Made with Love by A.D.D Designs LLC</h5>
       </div>
     </div>
   </footer>
-  <script src='https://code.jquery.com/jquery-3.2.1.slim.min.js' integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN' crossorigin='anonymous'></script> <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js' integrity='sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q' crossorigin='anonymous'></script> <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js' integrity='sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl' crossorigin='anonymous'></script>
+  <script src='https://code.jquery.com/jquery-3.2.1.slim.min.js'
+    integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN'
+    crossorigin='anonymous'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js'
+    integrity='sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q'
+    crossorigin='anonymous'></script>
+  <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'
+    integrity='sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl'
+    crossorigin='anonymous'></script>
   <script src="app.js"></script>
 </body>
+
 </html>

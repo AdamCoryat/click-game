@@ -1,10 +1,19 @@
-body { min-height: 100vh; display: flex; flex-direction: column; }
+
+
+
+body { 
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column; 
+  background-image: url("background.jpg");
+
+  }
 header{
-  height: 20vh;
+  min-height: 15vh;
  } 
 main{flex-grow: 1;} 
 footer{
-  height: 20vh;
+  min-height: 10vh;
  }
 
  .mining{
@@ -12,5 +21,24 @@ footer{
  }
  
  .goldNugget{
-   height: 10vh;
+   height: 4vh;
+ }
+
+ .tools{
+   height: 4vh;
+ }
+
+ .title-font{
+  font-family: 'Monoton', cursive;
+  font-size: 10vh;
+  color: goldenrod
+ }
+
+ .trans-bg{
+   background-color: rgba(82, 76, 76, 0.452)
+ }
+
+ .body-font{
+   font-family: 'Press Start 2P', cursive;
+   color: goldenrod
  }
