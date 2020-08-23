@@ -1,9 +1,28 @@
 let minable = true
 
+let achievements = [
+  {
+    name: "1st click!",
+    reached: 0,
+    amount: 1
+  },
+  {
+    name: "1000 gold!",
+    reached: 0,
+    amount: 1000
+  },
+  {
+    name: "100000 gold!",
+    reached: 0,
+    amount: 100000
+  },
+]
+
 let counters = {
   money: 0,
   click: 1,
-  autoCount: 0
+  autoCount: 0,
+  moneyTotal: 0
 }
 
 let clickUpgrades = {
@@ -34,12 +53,14 @@ let automaticUpgrades = {
 
 loadCounters()
 
+//stringifys objects then saves them to local storage
 function saveData() {
   window.localStorage.setItem("counters", JSON.stringify(counters))
   window.localStorage.setItem("clickUpgrades", JSON.stringify(clickUpgrades))
   window.localStorage.setItem("automaticUpgrades", JSON.stringify(automaticUpgrades))
 }
 
+//loads data that was stored i local storage
 function loadCounters() {
   let counterData = JSON.parse(window.localStorage.getItem("counters"))
   let clickUpgradesData = JSON.parse(window.localStorage.getItem("clickUpgrades"))
@@ -53,7 +74,7 @@ function loadCounters() {
   }
 }
 
-
+// subtract price from money, add a chizel to quanity and add to the click count modifier
 function buyChizel() {
   let chizel = clickUpgrades.chizel
   if (counters.money >= chizel.price) {
@@ -67,6 +88,7 @@ function buyChizel() {
   update()
 }
 
+//subtract price from money, add a pickaxe to quanity and add to the click count modifier
 function buyPickaxe() {
   let pickaxe = clickUpgrades.pickaxe
   if (counters.money >= pickaxe.price) {
@@ -79,6 +101,7 @@ function buyPickaxe() {
   update()
 }
 
+//subtract price from money, add a miner to the quanity and add modifier to auotCounter
 function buyMiner() {
   let miner = automaticUpgrades.miner
   if (counters.money >= miner.price) {
@@ -91,7 +114,7 @@ function buyMiner() {
   update()
 }
 
-
+//subtract price from money, add to robot quanity and add modifier to autoCounter
 function buyRobot() {
   let robot = automaticUpgrades.robot
   if (counters.money >= robot.price) {
@@ -104,17 +127,17 @@ function buyRobot() {
   update()
 }
 
+// adds counters.autoCount to the total every 3 seconds. 
 function moneyInterval() {
-  if (counters.autoCount > 1) {
-    setInterval(() => {
-      counters.money += counters.autoCount
-      saveData()
-      update()
-    }, 3000);
-  }
+  setInterval(() => {
+    counters.money += counters.autoCount
+    //counters.moneyTotal += counters.autoCount
+    saveData()
+    update()
+  }, 3000);
 }
 
-
+//draws smaller card for mobile applications to keep track of the gold
 function drawMoneyMobile() {
   let template = `<div class="card trans-bg border border-secondary body-font d-block d-md-none text-center m-3">
         <h5><img class="goldNugget" src="gold.png"> <span class="body-font" id="moneyMobile">${counters.money}</span></h5>
@@ -122,6 +145,7 @@ function drawMoneyMobile() {
   document.getElementById("moneyMobileCard").innerHTML = template
 }
 
+//draws a md version and a mobile version of the stats of autoclick and click
 function drawCurrentStats() {
   let template = `<div class="card trans-bg border border-secondary body-font d-none d-md-block">
   <div class="card-header font-weight-bold">
@@ -140,6 +164,7 @@ function drawCurrentStats() {
   document.getElementById("currentStats").innerHTML = template
 }
 
+//draws a md version and a mobile version of the backpack with the items and amount of gold
 function drawInventory() {
   let template = `<div class="card trans-bg border border-secondary body-font d-none d-md-block">
 <div class="card-body">
@@ -162,41 +187,70 @@ function drawInventory() {
   document.getElementById("inventory").innerHTML = template
 }
 
+//draws the buttons to access the purchase functions
 function drawButtons() {
   let template = `
   <div class="m-2">
     <p><img class="goldNugget" src="gold.png">  <span id="chizelPrice">${clickUpgrades.chizel.price}</span></p>
-    <button type="button" class="btn btn-secondary" onclick="buyChizel()"><img class="tools" src="chizel.png"></button>
+    <button id="chizelBtn" type="button" class="btn btn-secondary" onclick="buyChizel()"><img class="tools" src="chizel.png"></button>
   </div>
   <div class="m-2">
     <p><img class="goldNugget" src="gold.png">  <span id="pickaxePrice">${clickUpgrades.pickaxe.price}</span></p>
-    <button type="button" class="btn btn-secondary" onclick="buyPickaxe()"><img class="tools" src="pickaxe.png"></button>
+    <button id="pickaxeBtn" type="button" class="btn btn-secondary" onclick="buyPickaxe()"><img class="tools" src="pickaxe.png"></button>
   </div>
   <div class="m-2">
     <p><img class="goldNugget" src="gold.png">  <span id="minerPrice">${automaticUpgrades.miner.price}</span></p>
-    <button type="button" class="btn btn-secondary" onclick="buyMiner()"><img class="tools" src="miner.png"></button>
+    <button id="minerBtn" type="button" class="btn btn-secondary" onclick="buyMiner()"><img class="tools" src="miner.png"></button>
   </div>
   <div class="m-2">
     <p><img class="goldNugget" src="gold.png">  <span id="robotPrice">${automaticUpgrades.robot.price}</span></p>
-    <button type="button" class="btn btn-secondary" onclick="buyRobot()"><img class="tools" src="robot.png"></button>
+    <button id="robotBtn" type="button" class="btn btn-secondary" onclick="buyRobot()"><img class="tools" src="robot.png"></button>
   </div>`
   document.getElementById("buttons").innerHTML = template
 }
 
+//disables buttons if the price does not match the gold amount
 function disableButtons() {
-  for (let i = 0; i < clickUpgrades.length; i++) {
-    const cost = clickUpgrades[i];
-    console.log(cost)
-
+  let m = counters.money
+  let c = clickUpgrades
+  let a = automaticUpgrades
+  if (c.chizel.price < m) {
+    document.querySelector('#chizelBtn').removeAttribute('disabled')
+  } if (c.pickaxe.price < m) {
+    document.querySelector('#pickaxeBtn').removeAttribute('disabled')
+  } if (a.miner.price < m) {
+    document.querySelector('#minerBtn').removeAttribute('disabled')
+  } if (a.robot.price < m) {
+    document.querySelector('#robotBtn').removeAttribute('disabled')
+  } else {
+    document.querySelector('#chizelBtn').setAttribute('disabled', true)
+    document.querySelector('#pickaxeBtn').setAttribute('disabled', true)
+    document.querySelector('#minerBtn').setAttribute('disabled', true)
+    document.querySelector('#robotBtn').setAttribute('disabled', true)
   }
+
+}
+
+//checks to see if moneyTotal meets an achievement amounts
+function achievement() {
+  for (let i = 0; i < achievements.length; i++) {
+    const a = achievements[i];
+    if (a.amount <= counters.moneyTotal && a.reached == 0) {
+      a.reached++
+      alert(a.name)
+    }
+  }
+
 }
 
 
+//an onclick function attached to the image to add to the gold
 function mine() {
   if (!minable) {
     return
   }
   counters.money += counters.click
+  counters.moneyTotal += counters.click
   update()
   saveData()
 
@@ -207,7 +261,7 @@ function mine() {
 
 }
 
-
+//updates all the stats in the game
 function update() {
   document.getElementById("money").innerText = counters.money.toString()
   document.getElementById("chizel").innerText = clickUpgrades.chizel.quantity.toString()
@@ -227,10 +281,10 @@ function update() {
   document.getElementById("robotMobile").innerText = automaticUpgrades.robot.quantity.toString()
   document.getElementById("clickValueMobile").innerText = counters.click.toString()
   document.getElementById("autoValueMobile").innerText = counters.autoCount.toString()
-  disableButtons()
+  achievement()
 }
 
-
+//test function to try and break click
 function forLoopTest() {
   for (let i = 0; i <= 50; i++) {
     mine()
