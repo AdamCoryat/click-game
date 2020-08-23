@@ -12,9 +12,9 @@ let achievements = [
     amount: 1000
   },
   {
-    name: "100000 gold!",
+    name: "10000 gold!",
     reached: 0,
-    amount: 100000
+    amount: 10000
   },
 ]
 
@@ -140,7 +140,7 @@ function moneyInterval() {
 //draws smaller card for mobile applications to keep track of the gold
 function drawMoneyMobile() {
   let template = `<div class="shadow-gold card trans-bg border border-secondary body-font d-block d-md-none text-center m-3 p-2">
-        <h5><img class="goldNugget" src="gold.png"> <span class="body-font" id="moneyMobile">${counters.money}</span></h5>
+        <h5><img class="goldNugget" src="gold.png"> <span class="body-font" id="moneyMobile">${counters.money}</span></h5><br>
       </div>`
   document.getElementById("moneyMobileCard").innerHTML = template
 }
@@ -156,7 +156,7 @@ function drawCurrentStats() {
 </div>
     <div class="shadow-gold card trans-bg border border-secondary body-font d-block d-md-none m-3" >
       <div class="card-header font-weight-bold">
-        Gold Getting Stats
+        Gold Gettin Stats
   </div>
       <p class="card-text font-weight-lighter">Per Click: <span id="clickValueMobile">${counters.clickclick}</span></p>
       <p class="card-text font-weight-lighter">Idle Gold:  <span id="autoValueMobile">${counters.autoCount}</span></p>
@@ -170,6 +170,7 @@ function drawInventory() {
 <div class="card-body">
   <h4 class="card-title body-font">Backpack</h4>
   <h5><img class="goldNugget" src="gold.png"> <span class="body-font"id="money">${counters.money}</span></h5>
+  <h5 class="body-font">Earned: <span class="body-font"id="moneyTotal">${counters.moneyTotal}</span></h5>
   <p class="card-text">Chizel: <span id="chizel">${clickUpgrades.chizel.quantity}</span></p>
   <p class="card-text">Pickaxe: <span id="pickaxe">${clickUpgrades.pickaxe.quantity}</span></p>
   <p class="card-text">miner: <span id="miner">${automaticUpgrades.miner.quantity}</span></p>
@@ -209,27 +210,7 @@ function drawButtons() {
   document.getElementById("buttons").innerHTML = template
 }
 
-//disables buttons if the price does not match the gold amount
-function disableButtons() {
-  let m = counters.money
-  let c = clickUpgrades
-  let a = automaticUpgrades
-  if (c.chizel.price < m) {
-    document.querySelector('#chizelBtn').removeAttribute('disabled')
-  } if (c.pickaxe.price < m) {
-    document.querySelector('#pickaxeBtn').removeAttribute('disabled')
-  } if (a.miner.price < m) {
-    document.querySelector('#minerBtn').removeAttribute('disabled')
-  } if (a.robot.price < m) {
-    document.querySelector('#robotBtn').removeAttribute('disabled')
-  } else {
-    document.querySelector('#chizelBtn').setAttribute('disabled', true)
-    document.querySelector('#pickaxeBtn').setAttribute('disabled', true)
-    document.querySelector('#minerBtn').setAttribute('disabled', true)
-    document.querySelector('#robotBtn').setAttribute('disabled', true)
-  }
 
-}
 
 //checks to see if moneyTotal meets an achievement amounts
 function achievement() {
@@ -265,6 +246,7 @@ function mine() {
 //updates all the stats in the game
 function update() {
   document.getElementById("money").innerText = counters.money.toString()
+  document.getElementById("moneyTotal").innerText = counters.moneyTotal.toString()
   document.getElementById("chizel").innerText = clickUpgrades.chizel.quantity.toString()
   document.getElementById("pickaxe").innerText = clickUpgrades.pickaxe.quantity.toString()
   document.getElementById("miner").innerText = automaticUpgrades.miner.quantity.toString()
@@ -293,7 +275,9 @@ function forLoopTest() {
   }
 }
 
+// instructions on how to play the game 
 alert("Click the Globe to start earning gold, purchase items to increase your gold making skills!")
+
 moneyInterval()
 drawMoneyMobile()
 drawButtons()
