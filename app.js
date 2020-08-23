@@ -139,7 +139,7 @@ function moneyInterval() {
 
 //draws smaller card for mobile applications to keep track of the gold
 function drawMoneyMobile() {
-  let template = `<div class="card trans-bg border border-secondary body-font d-block d-md-none text-center m-3">
+  let template = `<div class="shadow-gold card trans-bg border border-secondary body-font d-block d-md-none text-center m-3 p-2">
         <h5><img class="goldNugget" src="gold.png"> <span class="body-font" id="moneyMobile">${counters.money}</span></h5>
       </div>`
   document.getElementById("moneyMobileCard").innerHTML = template
@@ -147,14 +147,14 @@ function drawMoneyMobile() {
 
 //draws a md version and a mobile version of the stats of autoclick and click
 function drawCurrentStats() {
-  let template = `<div class="card trans-bg border border-secondary body-font d-none d-md-block">
+  let template = `<div class="shadow-gold card trans-bg border border-secondary body-font d-none d-md-block">
   <div class="card-header font-weight-bold">
     Gold Getting Stats
   </div>
   <p class="card-text font-weight-lighter">This is how much sweet gold loots your getting per click: <span id="clickValue">${counters.click}</span></p>
   <p class="card-text font-weight-lighter">This is how much gold you're making not doing anything!: <span id="autoValue">${counters.autoCount}</span></p>
 </div>
-    <div class="card trans-bg border border-secondary body-font d-block d-md-none m-3" >
+    <div class="shadow-gold card trans-bg border border-secondary body-font d-block d-md-none m-3" >
       <div class="card-header font-weight-bold">
         Gold Getting Stats
   </div>
@@ -166,7 +166,7 @@ function drawCurrentStats() {
 
 //draws a md version and a mobile version of the backpack with the items and amount of gold
 function drawInventory() {
-  let template = `<div class="card trans-bg border border-secondary body-font d-none d-md-block">
+  let template = `<div class="shadow-gold card trans-bg border border-secondary body-font d-none d-md-block">
 <div class="card-body">
   <h4 class="card-title body-font">Backpack</h4>
   <h5><img class="goldNugget" src="gold.png"> <span class="body-font"id="money">${counters.money}</span></h5>
@@ -176,7 +176,7 @@ function drawInventory() {
   <p class="card-text">robot: <span id="robot">${automaticUpgrades.robot.quantity}</span></p>
 </div>
 </div>
-<div class="card trans-bg border border-secondary body-font d-block d-md-none m-3">
+<div class="shadow-gold card trans-bg border border-secondary body-font d-block d-md-none m-3">
 <div class="card-body">
   <p class="card-text"><img class="tools" src="chizel.png"> <span id="chizelMobile">${clickUpgrades.chizel.quantity}</span></p>
   <p class="card-text"><img class="tools" src="pickaxe.png"> <span id="pickaxeMobile">${clickUpgrades.pickaxe.quantity}</span></p>
@@ -190,7 +190,7 @@ function drawInventory() {
 //draws the buttons to access the purchase functions
 function drawButtons() {
   let template = `
-  <div class="m-2">
+  <div class="m-2 ">
     <p><img class="goldNugget" src="gold.png">  <span id="chizelPrice">${clickUpgrades.chizel.price}</span></p>
     <button id="chizelBtn" type="button" class="btn btn-secondary" onclick="buyChizel()"><img class="tools" src="chizel.png"></button>
   </div>
@@ -239,6 +239,7 @@ function achievement() {
       a.reached++
       alert(a.name)
     }
+    saveData()
   }
 
 }
@@ -292,7 +293,7 @@ function forLoopTest() {
   }
 }
 
-
+alert("Click the Globe to start earning gold, purchase items to increase your gold making skills!")
 moneyInterval()
 drawMoneyMobile()
 drawButtons()

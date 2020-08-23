@@ -143,25 +143,25 @@ function moneyInterval() {
 
 
 function drawMoneyMobile() {
-  var template = "<div class=\"card trans-bg border border-secondary body-font d-block d-md-none text-center m-3\">\n        <h5><img class=\"goldNugget\" src=\"gold.png\"> <span class=\"body-font\" id=\"moneyMobile\">".concat(counters.money, "</span></h5>\n      </div>");
+  var template = "<div class=\"shadow-gold card trans-bg border border-secondary body-font d-block d-md-none text-center m-3 p-2\">\n        <h5><img class=\"goldNugget\" src=\"gold.png\"> <span class=\"body-font\" id=\"moneyMobile\">".concat(counters.money, "</span></h5>\n      </div>");
   document.getElementById("moneyMobileCard").innerHTML = template;
 } //draws a md version and a mobile version of the stats of autoclick and click
 
 
 function drawCurrentStats() {
-  var template = "<div class=\"card trans-bg border border-secondary body-font d-none d-md-block\">\n  <div class=\"card-header font-weight-bold\">\n    Gold Getting Stats\n  </div>\n  <p class=\"card-text font-weight-lighter\">This is how much sweet gold loots your getting per click: <span id=\"clickValue\">".concat(counters.click, "</span></p>\n  <p class=\"card-text font-weight-lighter\">This is how much gold you're making not doing anything!: <span id=\"autoValue\">").concat(counters.autoCount, "</span></p>\n</div>\n    <div class=\"card trans-bg border border-secondary body-font d-block d-md-none m-3\" >\n      <div class=\"card-header font-weight-bold\">\n        Gold Getting Stats\n  </div>\n      <p class=\"card-text font-weight-lighter\">Per Click: <span id=\"clickValueMobile\">").concat(counters.clickclick, "</span></p>\n      <p class=\"card-text font-weight-lighter\">Idle Gold:  <span id=\"autoValueMobile\">").concat(counters.autoCount, "</span></p>\n</div >");
+  var template = "<div class=\"shadow-gold card trans-bg border border-secondary body-font d-none d-md-block\">\n  <div class=\"card-header font-weight-bold\">\n    Gold Getting Stats\n  </div>\n  <p class=\"card-text font-weight-lighter\">This is how much sweet gold loots your getting per click: <span id=\"clickValue\">".concat(counters.click, "</span></p>\n  <p class=\"card-text font-weight-lighter\">This is how much gold you're making not doing anything!: <span id=\"autoValue\">").concat(counters.autoCount, "</span></p>\n</div>\n    <div class=\"shadow-gold card trans-bg border border-secondary body-font d-block d-md-none m-3\" >\n      <div class=\"card-header font-weight-bold\">\n        Gold Getting Stats\n  </div>\n      <p class=\"card-text font-weight-lighter\">Per Click: <span id=\"clickValueMobile\">").concat(counters.clickclick, "</span></p>\n      <p class=\"card-text font-weight-lighter\">Idle Gold:  <span id=\"autoValueMobile\">").concat(counters.autoCount, "</span></p>\n</div >");
   document.getElementById("currentStats").innerHTML = template;
 } //draws a md version and a mobile version of the backpack with the items and amount of gold
 
 
 function drawInventory() {
-  var template = "<div class=\"card trans-bg border border-secondary body-font d-none d-md-block\">\n<div class=\"card-body\">\n  <h4 class=\"card-title body-font\">Backpack</h4>\n  <h5><img class=\"goldNugget\" src=\"gold.png\"> <span class=\"body-font\"id=\"money\">".concat(counters.money, "</span></h5>\n  <p class=\"card-text\">Chizel: <span id=\"chizel\">").concat(clickUpgrades.chizel.quantity, "</span></p>\n  <p class=\"card-text\">Pickaxe: <span id=\"pickaxe\">").concat(clickUpgrades.pickaxe.quantity, "</span></p>\n  <p class=\"card-text\">miner: <span id=\"miner\">").concat(automaticUpgrades.miner.quantity, "</span></p>\n  <p class=\"card-text\">robot: <span id=\"robot\">").concat(automaticUpgrades.robot.quantity, "</span></p>\n</div>\n</div>\n<div class=\"card trans-bg border border-secondary body-font d-block d-md-none m-3\">\n<div class=\"card-body\">\n  <p class=\"card-text\"><img class=\"tools\" src=\"chizel.png\"> <span id=\"chizelMobile\">").concat(clickUpgrades.chizel.quantity, "</span></p>\n  <p class=\"card-text\"><img class=\"tools\" src=\"pickaxe.png\"> <span id=\"pickaxeMobile\">").concat(clickUpgrades.pickaxe.quantity, "</span></p>\n  <p class=\"card-text\"><img class=\"tools\" src=\"miner.png\"> <span id=\"minerMobile\">").concat(automaticUpgrades.miner.quantity, "</span></p>\n  <p class=\"card-text\"><img class=\"tools\" src=\"robot.png\"> <span id=\"robotMobile\">").concat(automaticUpgrades.robot.quantity, "</span></p>\n</div>\n</div>");
+  var template = "<div class=\"shadow-gold card trans-bg border border-secondary body-font d-none d-md-block\">\n<div class=\"card-body\">\n  <h4 class=\"card-title body-font\">Backpack</h4>\n  <h5><img class=\"goldNugget\" src=\"gold.png\"> <span class=\"body-font\"id=\"money\">".concat(counters.money, "</span></h5>\n  <p class=\"card-text\">Chizel: <span id=\"chizel\">").concat(clickUpgrades.chizel.quantity, "</span></p>\n  <p class=\"card-text\">Pickaxe: <span id=\"pickaxe\">").concat(clickUpgrades.pickaxe.quantity, "</span></p>\n  <p class=\"card-text\">miner: <span id=\"miner\">").concat(automaticUpgrades.miner.quantity, "</span></p>\n  <p class=\"card-text\">robot: <span id=\"robot\">").concat(automaticUpgrades.robot.quantity, "</span></p>\n</div>\n</div>\n<div class=\"shadow-gold card trans-bg border border-secondary body-font d-block d-md-none m-3\">\n<div class=\"card-body\">\n  <p class=\"card-text\"><img class=\"tools\" src=\"chizel.png\"> <span id=\"chizelMobile\">").concat(clickUpgrades.chizel.quantity, "</span></p>\n  <p class=\"card-text\"><img class=\"tools\" src=\"pickaxe.png\"> <span id=\"pickaxeMobile\">").concat(clickUpgrades.pickaxe.quantity, "</span></p>\n  <p class=\"card-text\"><img class=\"tools\" src=\"miner.png\"> <span id=\"minerMobile\">").concat(automaticUpgrades.miner.quantity, "</span></p>\n  <p class=\"card-text\"><img class=\"tools\" src=\"robot.png\"> <span id=\"robotMobile\">").concat(automaticUpgrades.robot.quantity, "</span></p>\n</div>\n</div>");
   document.getElementById("inventory").innerHTML = template;
 } //draws the buttons to access the purchase functions
 
 
 function drawButtons() {
-  var template = "\n  <div class=\"m-2\">\n    <p><img class=\"goldNugget\" src=\"gold.png\">  <span id=\"chizelPrice\">".concat(clickUpgrades.chizel.price, "</span></p>\n    <button id=\"chizelBtn\" type=\"button\" class=\"btn btn-secondary\" onclick=\"buyChizel()\"><img class=\"tools\" src=\"chizel.png\"></button>\n  </div>\n  <div class=\"m-2\">\n    <p><img class=\"goldNugget\" src=\"gold.png\">  <span id=\"pickaxePrice\">").concat(clickUpgrades.pickaxe.price, "</span></p>\n    <button id=\"pickaxeBtn\" type=\"button\" class=\"btn btn-secondary\" onclick=\"buyPickaxe()\"><img class=\"tools\" src=\"pickaxe.png\"></button>\n  </div>\n  <div class=\"m-2\">\n    <p><img class=\"goldNugget\" src=\"gold.png\">  <span id=\"minerPrice\">").concat(automaticUpgrades.miner.price, "</span></p>\n    <button id=\"minerBtn\" type=\"button\" class=\"btn btn-secondary\" onclick=\"buyMiner()\"><img class=\"tools\" src=\"miner.png\"></button>\n  </div>\n  <div class=\"m-2\">\n    <p><img class=\"goldNugget\" src=\"gold.png\">  <span id=\"robotPrice\">").concat(automaticUpgrades.robot.price, "</span></p>\n    <button id=\"robotBtn\" type=\"button\" class=\"btn btn-secondary\" onclick=\"buyRobot()\"><img class=\"tools\" src=\"robot.png\"></button>\n  </div>");
+  var template = "\n  <div class=\"m-2 \">\n    <p><img class=\"goldNugget\" src=\"gold.png\">  <span id=\"chizelPrice\">".concat(clickUpgrades.chizel.price, "</span></p>\n    <button id=\"chizelBtn\" type=\"button\" class=\"btn btn-secondary\" onclick=\"buyChizel()\"><img class=\"tools\" src=\"chizel.png\"></button>\n  </div>\n  <div class=\"m-2\">\n    <p><img class=\"goldNugget\" src=\"gold.png\">  <span id=\"pickaxePrice\">").concat(clickUpgrades.pickaxe.price, "</span></p>\n    <button id=\"pickaxeBtn\" type=\"button\" class=\"btn btn-secondary\" onclick=\"buyPickaxe()\"><img class=\"tools\" src=\"pickaxe.png\"></button>\n  </div>\n  <div class=\"m-2\">\n    <p><img class=\"goldNugget\" src=\"gold.png\">  <span id=\"minerPrice\">").concat(automaticUpgrades.miner.price, "</span></p>\n    <button id=\"minerBtn\" type=\"button\" class=\"btn btn-secondary\" onclick=\"buyMiner()\"><img class=\"tools\" src=\"miner.png\"></button>\n  </div>\n  <div class=\"m-2\">\n    <p><img class=\"goldNugget\" src=\"gold.png\">  <span id=\"robotPrice\">").concat(automaticUpgrades.robot.price, "</span></p>\n    <button id=\"robotBtn\" type=\"button\" class=\"btn btn-secondary\" onclick=\"buyRobot()\"><img class=\"tools\" src=\"robot.png\"></button>\n  </div>");
   document.getElementById("buttons").innerHTML = template;
 } //disables buttons if the price does not match the gold amount
 
@@ -202,6 +202,8 @@ function achievement() {
       a.reached++;
       alert(a.name);
     }
+
+    saveData();
   }
 } //an onclick function attached to the image to add to the gold
 
@@ -251,6 +253,7 @@ function forLoopTest() {
   }
 }
 
+alert("Click the Globe to start earning gold, purchase items to increase your gold making skills!");
 moneyInterval();
 drawMoneyMobile();
 drawButtons();

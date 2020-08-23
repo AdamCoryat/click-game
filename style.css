@@ -17,8 +17,11 @@ footer{
  }
 
  .mining{
-  height: 50vh
- }
+  height: 50vh;
+}
+.shadow-gold{
+  box-shadow: 0 0 3px 3px goldenrod;
+}
  
  .goldNugget{
    height: 4vh;
