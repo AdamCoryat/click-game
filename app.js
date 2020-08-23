@@ -1,7 +1,10 @@
-let money = 0
-let click = 1
-let autoCount = 0
 let minable = true
+
+let counters = {
+  money: 0,
+  click: 1,
+  autoCount: 0
+}
 
 let clickUpgrades = {
   chizel: {
@@ -29,65 +32,92 @@ let automaticUpgrades = {
   }
 };
 
+loadCounters()
+
+function saveData() {
+  window.localStorage.setItem("counters", JSON.stringify(counters))
+  window.localStorage.setItem("clickUpgrades", JSON.stringify(clickUpgrades))
+  window.localStorage.setItem("automaticUpgrades", JSON.stringify(automaticUpgrades))
+}
+
+function loadCounters() {
+  let counterData = JSON.parse(window.localStorage.getItem("counters"))
+  let clickUpgradesData = JSON.parse(window.localStorage.getItem("clickUpgrades"))
+  let automaticUpgradesData = JSON.parse(window.localStorage.getItem("automaticUpgrades"))
+  if (counterData) {
+    counters = counterData;
+  } if (clickUpgradesData) {
+    clickUpgrades = clickUpgradesData
+  } if (automaticUpgradesData) {
+    automaticUpgrades = automaticUpgradesData
+  }
+}
+
 
 function buyChizel() {
   let chizel = clickUpgrades.chizel
-  if (money >= chizel.price) {
-    money -= chizel.price
+  if (counters.money >= chizel.price) {
+    counters.money -= chizel.price
     chizel.quantity++
-    chizel.price += 20
+    chizel.price += 5
 
-    click += chizel.multiplier
+    counters.click += chizel.multiplier
   }
+  saveData()
   update()
 }
 
 function buyPickaxe() {
   let pickaxe = clickUpgrades.pickaxe
-  if (money >= pickaxe.price) {
-    money -= pickaxe.price
+  if (counters.money >= pickaxe.price) {
+    counters.money -= pickaxe.price
     pickaxe.quantity++
-    click += pickaxe.multiplier
-    pickaxe.price += 30
+    counters.click += pickaxe.multiplier
+    pickaxe.price += 15
   }
+  saveData()
   update()
 }
 
 function buyMiner() {
   let miner = automaticUpgrades.miner
-  if (money >= miner.price) {
-    money -= miner.price
+  if (counters.money >= miner.price) {
+    counters.money -= miner.price
     miner.quantity++
-    autoCount += miner.multiplier
-    miner.price += 50
-
-    setInterval(() => {
-      money += miner.multiplier
-      update()
-    }, 3000);
+    counters.autoCount += miner.multiplier
+    miner.price += 20
   }
+  saveData()
   update()
 }
 
 
 function buyRobot() {
   let robot = automaticUpgrades.robot
-  if (money >= robot.price) {
-    money -= robot.price
+  if (counters.money >= robot.price) {
+    counters.money -= robot.price
     robot.quantity++
-    autoCount += robot.multiplier
-    robot.price += 250
-    setInterval(() => {
-      money += robot.multiplier
-      update()
-    }, 3000);
+    counters.autoCount += robot.multiplier
+    robot.price += 125
   }
+  saveData()
   update()
 }
 
+function moneyInterval() {
+  if (counters.autoCount > 1) {
+    setInterval(() => {
+      counters.money += counters.autoCount
+      saveData()
+      update()
+    }, 3000);
+  }
+}
+
+
 function drawMoneyMobile() {
   let template = `<div class="card trans-bg border border-secondary body-font d-block d-md-none text-center m-3">
-        <h5><img class="goldNugget" src="gold.png"> <span class="body-font" id="moneyMobile">${money}</span></h5>
+        <h5><img class="goldNugget" src="gold.png"> <span class="body-font" id="moneyMobile">${counters.money}</span></h5>
       </div>`
   document.getElementById("moneyMobileCard").innerHTML = template
 }
@@ -97,15 +127,15 @@ function drawCurrentStats() {
   <div class="card-header font-weight-bold">
     Gold Getting Stats
   </div>
-  <p class="card-text font-weight-lighter">This is how much sweet gold loots your getting per click: <span id="clickValue">${click}</span></p>
-  <p class="card-text font-weight-lighter">This is how much gold you're making not doing anything!: <span id="autoValue">${autoCount}</span></p>
+  <p class="card-text font-weight-lighter">This is how much sweet gold loots your getting per click: <span id="clickValue">${counters.click}</span></p>
+  <p class="card-text font-weight-lighter">This is how much gold you're making not doing anything!: <span id="autoValue">${counters.autoCount}</span></p>
 </div>
     <div class="card trans-bg border border-secondary body-font d-block d-md-none m-3" >
       <div class="card-header font-weight-bold">
         Gold Getting Stats
   </div>
-      <p class="card-text font-weight-lighter">Per Click: <span id="clickValueMobile">${click}</span></p>
-      <p class="card-text font-weight-lighter">Idle Gold:  <span id="autoValueMobile">${autoCount}</span></p>
+      <p class="card-text font-weight-lighter">Per Click: <span id="clickValueMobile">${counters.clickclick}</span></p>
+      <p class="card-text font-weight-lighter">Idle Gold:  <span id="autoValueMobile">${counters.autoCount}</span></p>
 </div >`
   document.getElementById("currentStats").innerHTML = template
 }
@@ -114,7 +144,7 @@ function drawInventory() {
   let template = `<div class="card trans-bg border border-secondary body-font d-none d-md-block">
 <div class="card-body">
   <h4 class="card-title body-font">Backpack</h4>
-  <h5><img class="goldNugget" src="gold.png"> <span class="body-font"id="money">${money}</span></h5>
+  <h5><img class="goldNugget" src="gold.png"> <span class="body-font"id="money">${counters.money}</span></h5>
   <p class="card-text">Chizel: <span id="chizel">${clickUpgrades.chizel.quantity}</span></p>
   <p class="card-text">Pickaxe: <span id="pickaxe">${clickUpgrades.pickaxe.quantity}</span></p>
   <p class="card-text">miner: <span id="miner">${automaticUpgrades.miner.quantity}</span></p>
@@ -153,13 +183,22 @@ function drawButtons() {
   document.getElementById("buttons").innerHTML = template
 }
 
+function disableButtons() {
+  for (let i = 0; i < clickUpgrades.length; i++) {
+    const cost = clickUpgrades[i];
+    console.log(cost)
+
+  }
+}
+
 
 function mine() {
   if (!minable) {
     return
   }
-  money += click
+  counters.money += counters.click
   update()
+  saveData()
 
   minable = false
   setTimeout(() => {
@@ -170,24 +209,25 @@ function mine() {
 
 
 function update() {
-  document.getElementById("money").innerText = money.toString()
+  document.getElementById("money").innerText = counters.money.toString()
   document.getElementById("chizel").innerText = clickUpgrades.chizel.quantity.toString()
   document.getElementById("pickaxe").innerText = clickUpgrades.pickaxe.quantity.toString()
   document.getElementById("miner").innerText = automaticUpgrades.miner.quantity.toString()
   document.getElementById("robot").innerText = automaticUpgrades.robot.quantity.toString()
-  document.getElementById("clickValue").innerText = click.toString()
-  document.getElementById("autoValue").innerText = autoCount.toString()
+  document.getElementById("clickValue").innerText = counters.click.toString()
+  document.getElementById("autoValue").innerText = counters.autoCount.toString()
   document.getElementById("chizelPrice").innerText = clickUpgrades.chizel.price.toString()
   document.getElementById("pickaxePrice").innerText = clickUpgrades.pickaxe.price.toString()
   document.getElementById("minerPrice").innerText = automaticUpgrades.miner.price.toString()
   document.getElementById("robotPrice").innerText = automaticUpgrades.robot.price.toString()
-  document.getElementById("moneyMobile").innerText = money.toString()
+  document.getElementById("moneyMobile").innerText = counters.money.toString()
   document.getElementById("chizelMobile").innerText = clickUpgrades.chizel.quantity.toString()
   document.getElementById("pickaxeMobile").innerText = clickUpgrades.pickaxe.quantity.toString()
   document.getElementById("minerMobile").innerText = automaticUpgrades.miner.quantity.toString()
   document.getElementById("robotMobile").innerText = automaticUpgrades.robot.quantity.toString()
-  document.getElementById("clickValueMobile").innerText = click.toString()
-  document.getElementById("autoValueMobile").innerText = autoCount.toString()
+  document.getElementById("clickValueMobile").innerText = counters.click.toString()
+  document.getElementById("autoValueMobile").innerText = counters.autoCount.toString()
+  disableButtons()
 }
 
 
@@ -199,7 +239,7 @@ function forLoopTest() {
 }
 
 
-
+moneyInterval()
 drawMoneyMobile()
 drawButtons()
 drawCurrentStats()

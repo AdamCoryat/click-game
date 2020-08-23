@@ -1,9 +1,11 @@
 "use strict";
 
-var money = 0;
-var click = 1;
-var autoCount = 0;
 var minable = true;
+var counters = {
+  money: 0,
+  click: 1,
+  autoCount: 0
+};
 var clickUpgrades = {
   chizel: {
     price: 50,
@@ -28,79 +30,110 @@ var automaticUpgrades = {
     multiplier: 100
   }
 };
+loadCounters();
+
+function saveData() {
+  window.localStorage.setItem("counters", JSON.stringify(counters));
+  window.localStorage.setItem("clickUpgrades", JSON.stringify(clickUpgrades));
+  window.localStorage.setItem("automaticUpgrades", JSON.stringify(automaticUpgrades));
+}
+
+function loadCounters() {
+  var counterData = JSON.parse(window.localStorage.getItem("counters"));
+  var clickUpgradesData = JSON.parse(window.localStorage.getItem("clickUpgrades"));
+  var automaticUpgradesData = JSON.parse(window.localStorage.getItem("automaticUpgrades"));
+
+  if (counterData) {
+    counters = counterData;
+  }
+
+  if (clickUpgradesData) {
+    clickUpgrades = clickUpgradesData;
+  }
+
+  if (automaticUpgradesData) {
+    automaticUpgrades = automaticUpgradesData;
+  }
+}
 
 function buyChizel() {
   var chizel = clickUpgrades.chizel;
 
-  if (money >= chizel.price) {
-    money -= chizel.price;
+  if (counters.money >= chizel.price) {
+    counters.money -= chizel.price;
     chizel.quantity++;
-    chizel.price += 20;
-    click += chizel.multiplier;
+    chizel.price += 5;
+    counters.click += chizel.multiplier;
   }
 
+  saveData();
   update();
 }
 
 function buyPickaxe() {
   var pickaxe = clickUpgrades.pickaxe;
 
-  if (money >= pickaxe.price) {
-    money -= pickaxe.price;
+  if (counters.money >= pickaxe.price) {
+    counters.money -= pickaxe.price;
     pickaxe.quantity++;
-    click += pickaxe.multiplier;
-    pickaxe.price += 30;
+    counters.click += pickaxe.multiplier;
+    pickaxe.price += 15;
   }
 
+  saveData();
   update();
 }
 
 function buyMiner() {
   var miner = automaticUpgrades.miner;
 
-  if (money >= miner.price) {
-    money -= miner.price;
+  if (counters.money >= miner.price) {
+    counters.money -= miner.price;
     miner.quantity++;
-    autoCount += miner.multiplier;
-    miner.price += 50;
-    setInterval(function () {
-      money += miner.multiplier;
-      update();
-    }, 3000);
+    counters.autoCount += miner.multiplier;
+    miner.price += 20;
   }
 
+  saveData();
   update();
 }
 
 function buyRobot() {
   var robot = automaticUpgrades.robot;
 
-  if (money >= robot.price) {
-    money -= robot.price;
+  if (counters.money >= robot.price) {
+    counters.money -= robot.price;
     robot.quantity++;
-    autoCount += robot.multiplier;
-    robot.price += 250;
-    setInterval(function () {
-      money += robot.multiplier;
-      update();
-    }, 3000);
+    counters.autoCount += robot.multiplier;
+    robot.price += 125;
   }
 
+  saveData();
   update();
 }
 
+function moneyInterval() {
+  if (counters.autoCount > 1) {
+    setInterval(function () {
+      counters.money += counters.autoCount;
+      saveData();
+      update();
+    }, 3000);
+  }
+}
+
 function drawMoneyMobile() {
-  var template = "<div class=\"card trans-bg border border-secondary body-font d-block d-md-none text-center m-3\">\n        <h5><img class=\"goldNugget\" src=\"gold.png\"> <span class=\"body-font\" id=\"moneyMobile\">".concat(money, "</span></h5>\n      </div>");
+  var template = "<div class=\"card trans-bg border border-secondary body-font d-block d-md-none text-center m-3\">\n        <h5><img class=\"goldNugget\" src=\"gold.png\"> <span class=\"body-font\" id=\"moneyMobile\">".concat(counters.money, "</span></h5>\n      </div>");
   document.getElementById("moneyMobileCard").innerHTML = template;
 }
 
 function drawCurrentStats() {
-  var template = "<div class=\"card trans-bg border border-secondary body-font d-none d-md-block\">\n  <div class=\"card-header font-weight-bold\">\n    Gold Getting Stats\n  </div>\n  <p class=\"card-text font-weight-lighter\">This is how much sweet gold loots your getting per click: <span id=\"clickValue\">".concat(click, "</span></p>\n  <p class=\"card-text font-weight-lighter\">This is how much gold you're making not doing anything!: <span id=\"autoValue\">").concat(autoCount, "</span></p>\n</div>\n    <div class=\"card trans-bg border border-secondary body-font d-block d-md-none m-3\" >\n      <div class=\"card-header font-weight-bold\">\n        Gold Getting Stats\n  </div>\n      <p class=\"card-text font-weight-lighter\">Per Click: <span id=\"clickValueMobile\">").concat(click, "</span></p>\n      <p class=\"card-text font-weight-lighter\">Idle Gold:  <span id=\"autoValueMobile\">").concat(autoCount, "</span></p>\n</div >");
+  var template = "<div class=\"card trans-bg border border-secondary body-font d-none d-md-block\">\n  <div class=\"card-header font-weight-bold\">\n    Gold Getting Stats\n  </div>\n  <p class=\"card-text font-weight-lighter\">This is how much sweet gold loots your getting per click: <span id=\"clickValue\">".concat(counters.click, "</span></p>\n  <p class=\"card-text font-weight-lighter\">This is how much gold you're making not doing anything!: <span id=\"autoValue\">").concat(counters.autoCount, "</span></p>\n</div>\n    <div class=\"card trans-bg border border-secondary body-font d-block d-md-none m-3\" >\n      <div class=\"card-header font-weight-bold\">\n        Gold Getting Stats\n  </div>\n      <p class=\"card-text font-weight-lighter\">Per Click: <span id=\"clickValueMobile\">").concat(counters.clickclick, "</span></p>\n      <p class=\"card-text font-weight-lighter\">Idle Gold:  <span id=\"autoValueMobile\">").concat(counters.autoCount, "</span></p>\n</div >");
   document.getElementById("currentStats").innerHTML = template;
 }
 
 function drawInventory() {
-  var template = "<div class=\"card trans-bg border border-secondary body-font d-none d-md-block\">\n<div class=\"card-body\">\n  <h4 class=\"card-title body-font\">Backpack</h4>\n  <h5><img class=\"goldNugget\" src=\"gold.png\"> <span class=\"body-font\"id=\"money\">".concat(money, "</span></h5>\n  <p class=\"card-text\">Chizel: <span id=\"chizel\">").concat(clickUpgrades.chizel.quantity, "</span></p>\n  <p class=\"card-text\">Pickaxe: <span id=\"pickaxe\">").concat(clickUpgrades.pickaxe.quantity, "</span></p>\n  <p class=\"card-text\">miner: <span id=\"miner\">").concat(automaticUpgrades.miner.quantity, "</span></p>\n  <p class=\"card-text\">robot: <span id=\"robot\">").concat(automaticUpgrades.robot.quantity, "</span></p>\n</div>\n</div>\n<div class=\"card trans-bg border border-secondary body-font d-block d-md-none m-3\">\n<div class=\"card-body\">\n  <p class=\"card-text\"><img class=\"tools\" src=\"chizel.png\"> <span id=\"chizelMobile\">").concat(clickUpgrades.chizel.quantity, "</span></p>\n  <p class=\"card-text\"><img class=\"tools\" src=\"pickaxe.png\"> <span id=\"pickaxeMobile\">").concat(clickUpgrades.pickaxe.quantity, "</span></p>\n  <p class=\"card-text\"><img class=\"tools\" src=\"miner.png\"> <span id=\"minerMobile\">").concat(automaticUpgrades.miner.quantity, "</span></p>\n  <p class=\"card-text\"><img class=\"tools\" src=\"robot.png\"> <span id=\"robotMobile\">").concat(automaticUpgrades.robot.quantity, "</span></p>\n</div>\n</div>");
+  var template = "<div class=\"card trans-bg border border-secondary body-font d-none d-md-block\">\n<div class=\"card-body\">\n  <h4 class=\"card-title body-font\">Backpack</h4>\n  <h5><img class=\"goldNugget\" src=\"gold.png\"> <span class=\"body-font\"id=\"money\">".concat(counters.money, "</span></h5>\n  <p class=\"card-text\">Chizel: <span id=\"chizel\">").concat(clickUpgrades.chizel.quantity, "</span></p>\n  <p class=\"card-text\">Pickaxe: <span id=\"pickaxe\">").concat(clickUpgrades.pickaxe.quantity, "</span></p>\n  <p class=\"card-text\">miner: <span id=\"miner\">").concat(automaticUpgrades.miner.quantity, "</span></p>\n  <p class=\"card-text\">robot: <span id=\"robot\">").concat(automaticUpgrades.robot.quantity, "</span></p>\n</div>\n</div>\n<div class=\"card trans-bg border border-secondary body-font d-block d-md-none m-3\">\n<div class=\"card-body\">\n  <p class=\"card-text\"><img class=\"tools\" src=\"chizel.png\"> <span id=\"chizelMobile\">").concat(clickUpgrades.chizel.quantity, "</span></p>\n  <p class=\"card-text\"><img class=\"tools\" src=\"pickaxe.png\"> <span id=\"pickaxeMobile\">").concat(clickUpgrades.pickaxe.quantity, "</span></p>\n  <p class=\"card-text\"><img class=\"tools\" src=\"miner.png\"> <span id=\"minerMobile\">").concat(automaticUpgrades.miner.quantity, "</span></p>\n  <p class=\"card-text\"><img class=\"tools\" src=\"robot.png\"> <span id=\"robotMobile\">").concat(automaticUpgrades.robot.quantity, "</span></p>\n</div>\n</div>");
   document.getElementById("inventory").innerHTML = template;
 }
 
@@ -109,13 +142,21 @@ function drawButtons() {
   document.getElementById("buttons").innerHTML = template;
 }
 
+function disableButtons() {
+  for (var i = 0; i < clickUpgrades.length; i++) {
+    var cost = clickUpgrades[i];
+    console.log(cost);
+  }
+}
+
 function mine() {
   if (!minable) {
     return;
   }
 
-  money += click;
+  counters.money += counters.click;
   update();
+  saveData();
   minable = false;
   setTimeout(function () {
     minable = true;
@@ -123,24 +164,25 @@ function mine() {
 }
 
 function update() {
-  document.getElementById("money").innerText = money.toString();
+  document.getElementById("money").innerText = counters.money.toString();
   document.getElementById("chizel").innerText = clickUpgrades.chizel.quantity.toString();
   document.getElementById("pickaxe").innerText = clickUpgrades.pickaxe.quantity.toString();
   document.getElementById("miner").innerText = automaticUpgrades.miner.quantity.toString();
   document.getElementById("robot").innerText = automaticUpgrades.robot.quantity.toString();
-  document.getElementById("clickValue").innerText = click.toString();
-  document.getElementById("autoValue").innerText = autoCount.toString();
+  document.getElementById("clickValue").innerText = counters.click.toString();
+  document.getElementById("autoValue").innerText = counters.autoCount.toString();
   document.getElementById("chizelPrice").innerText = clickUpgrades.chizel.price.toString();
   document.getElementById("pickaxePrice").innerText = clickUpgrades.pickaxe.price.toString();
   document.getElementById("minerPrice").innerText = automaticUpgrades.miner.price.toString();
   document.getElementById("robotPrice").innerText = automaticUpgrades.robot.price.toString();
-  document.getElementById("moneyMobile").innerText = money.toString();
+  document.getElementById("moneyMobile").innerText = counters.money.toString();
   document.getElementById("chizelMobile").innerText = clickUpgrades.chizel.quantity.toString();
   document.getElementById("pickaxeMobile").innerText = clickUpgrades.pickaxe.quantity.toString();
   document.getElementById("minerMobile").innerText = automaticUpgrades.miner.quantity.toString();
   document.getElementById("robotMobile").innerText = automaticUpgrades.robot.quantity.toString();
-  document.getElementById("clickValueMobile").innerText = click.toString();
-  document.getElementById("autoValueMobile").innerText = autoCount.toString();
+  document.getElementById("clickValueMobile").innerText = counters.click.toString();
+  document.getElementById("autoValueMobile").innerText = counters.autoCount.toString();
+  disableButtons();
 }
 
 function forLoopTest() {
@@ -149,6 +191,7 @@ function forLoopTest() {
   }
 }
 
+moneyInterval();
 drawMoneyMobile();
 drawButtons();
 drawCurrentStats();
