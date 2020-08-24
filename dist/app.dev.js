@@ -134,8 +134,8 @@ function buyRobot() {
 
 function moneyInterval() {
   setInterval(function () {
-    counters.money += counters.autoCount; //counters.moneyTotal += counters.autoCount
-
+    counters.money += counters.autoCount;
+    counters.moneyTotal += counters.autoCount;
     saveData();
     update();
   }, 3000);

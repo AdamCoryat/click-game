@@ -131,7 +131,7 @@ function buyRobot() {
 function moneyInterval() {
   setInterval(() => {
     counters.money += counters.autoCount
-    //counters.moneyTotal += counters.autoCount
+    counters.moneyTotal += counters.autoCount
     saveData()
     update()
   }, 3000);
