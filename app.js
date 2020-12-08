@@ -114,7 +114,7 @@ function buyMiner() {
   update()
 }
 
-//subtract price from money, add to robot quanity and add modifier to autoCounter
+
 function buyRobot() {
   let robot = automaticUpgrades.robot
   if (counters.money >= robot.price) {
@@ -127,7 +127,6 @@ function buyRobot() {
   update()
 }
 
-// adds counters.autoCount to the total every 3 seconds. 
 function moneyInterval() {
   setInterval(() => {
     counters.money += counters.autoCount
