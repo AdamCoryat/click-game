@@ -268,7 +268,7 @@ function update() {
 
 //test function to try and break click
 function forLoopTest() {
-  for (let i = 0; i <= 50; i++) {
+  for (let a = 0; a <= 50; a++) {
     mine()
 
   }
